@@ -1,0 +1,47 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100vh;
+  display: flex;
+  background-color: rgb(158, 141, 111);
+}
+
+.game-board{
+  width: 35vw;
+  height: 97.5vh;
+  margin: auto;
+  background: whitesmoke; 
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.card{
+  width: 7.5vw;
+  height: 22.5vh;
+  max-width: 7.5vw;
+  margin: 5px;
+  position: relative;
+  background-size: cover;
+  display: flex;
+}
+
+.card > img{
+  width: 70%;
+  margin: auto;
+}
+
+#drawn-card{
+  max-height: 200px;
+}
+
+.draw-card-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
