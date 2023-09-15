@@ -114,7 +114,7 @@ drawBtn.addEventListener('click', () => {
     if(drawnCards.length < 20){
       cardNum = pickRandomCard(drawnCards);
       const cardImgElem = document.getElementById('drawn-card');
-      cardImgElem.src = `./images/cards/${cardNum}.jpg`;
+      cardImgElem.src = `./images/cards/${cardNum}.png`;
       console.log(drawnCards);
     }
     else{
@@ -142,7 +142,7 @@ for(var i = 0; i < cards.length; i++){
   const cardNum = pickRandomCard(displayedCards);
 
   // Pick a random card image to be set as current card block's background image
-  currentCard.style.backgroundImage = 'url(./images/cards/' + cardNum + '.jpg)';
+  currentCard.style.backgroundImage = 'url(./images/cards/' + cardNum + '.png)';
 
   currentCard.addEventListener('click', () => {
     if(isWinning !== true){
