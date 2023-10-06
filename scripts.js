@@ -15,13 +15,13 @@
         | 0 0 0 0 |
         | 0 0 0 0 |
 */
-var isWinning = false;
-var cards = document.getElementsByClassName('card');
-var drawBtn = document.getElementById('draw-button');
-var restartBtn = document.getElementById('restart-game-button');
-var displayedCards = [];
-var drawnCards = [];
-var gameBoard = Array(16).fill(0);
+let isWinning = false;
+let cards = document.getElementsByClassName('card');
+let drawBtn = document.getElementById('draw-button');
+let restartBtn = document.getElementById('restart-game-button');
+let displayedCards = [];
+let drawnCards = [];
+let gameBoard = Array(16).fill(0);
 
 /*
   A function that returns a random integer in range of [min, max].
@@ -57,7 +57,6 @@ function areSpotsFilled(spot1,spot2,spot3,spot4){
   A function that returns boolean value on whether any bingo row has been filled.
 */
 function scanWinningRow(){
-  console.log(gameBoard)
   filledFirstRow = areSpotsFilled(0,1,2,3);
   filledSecondRow = areSpotsFilled(4,5,6,7);
   filledThirdRow = areSpotsFilled(8,9,10,11);
@@ -69,7 +68,6 @@ function scanWinningRow(){
   A function that returns boolean value on whether any bingo column has been filled.
 */
 function scanWinningColumn(){
-  console.log(gameBoard)
   filledFirstColumn = areSpotsFilled(0,4,8,12);
   filledSecondColumn = areSpotsFilled(1,5,9,13);
   filledThirdColumn = areSpotsFilled(2,6,10,14);
@@ -81,7 +79,6 @@ function scanWinningColumn(){
   A function that returns boolean value on whether any bingo diagonal has been filled.
 */
 function scanWinningDiagonal(){
-  console.log(gameBoard)
   filledLeftToRightDiagonal = areSpotsFilled(0,5,10,15);
   filledRightToLeftDiagonal = areSpotsFilled(3,6,9,12);
   return filledLeftToRightDiagonal || filledRightToLeftDiagonal;
@@ -91,10 +88,16 @@ function scanWinningDiagonal(){
   A function that check if the player has won yet, by validating winning rows/columns/diagonals.
 */
 function checkIsWinning(){
-  console.log('checkIsWinning');
+  // scan for horizontal matches, return true if found
   winningRow = scanWinningRow();
+
+  // scan for vertical matches
   winningColumn = scanWinningColumn();
+
+  // scan for diagonal matches
   winningDiagonal = scanWinningDiagonal();
+
+  // see if there is any match, and announce winning if found
   isWinning = winningRow || winningColumn || winningDiagonal;
   if(isWinning){
     alert('You win!');
@@ -107,18 +110,19 @@ function checkIsWinning(){
     - restartBtn will refresh the page to start a new game when clicked.
 */
 drawBtn.addEventListener('click', () => {
-  if(isWinning){
-    alert('You have already won the game. Feel free to refresh the page to replay!');
+	// if won
+	if(isWinning){
+    alert('You have already won the game.');
   }
   else{
+    // if have more card(s) to draw, pick a random, unpicked card id from the set & display the card image by updating img source
     if(drawnCards.length < 20){
       cardNum = pickRandomCard(drawnCards);
-      const cardImgElem = document.getElementById('drawn-card');
-      cardImgElem.src = `./images/cards/${cardNum}.png`;
-      console.log(drawnCards);
+      const cardImgElem = document.getElementById('drawn-card'); 
+      cardImgElem.src = `./images/cards/${cardNum}.png`; 
     }
     else{
-      alert('There is no more card left becuase you have already drawn all of them out!');
+      alert('There is no more card left!');
     }
   }
 });
@@ -133,17 +137,18 @@ restartBtn.addEventListener('click', () => {
     2) Add event listener at each card block so that it will perform desired action when clicked.
     3) Update id attribute of its child element to corresponding card number.
 */
-for(var i = 0; i < cards.length; i++){
-  // Define current card block & its corresponding index on gameboard
+for(let i = 0; i < cards.length; i++){
+  // Define current card & its corresponding index on gameboard
   const currentCard = cards[i];
   const index = i;
-
+  
   // Pick a random card to be displayed on card board
   const cardNum = pickRandomCard(displayedCards);
-
-  // Pick a random card image to be set as current card block's background image
+  
+  // Set corresponding card image as current card block's background
   currentCard.style.backgroundImage = 'url(./images/cards/' + cardNum + '.png)';
-
+  
+  // Add event listener for card elem to respond when clicked
   currentCard.addEventListener('click', () => {
     if(isWinning !== true){
       // can't chose bingo card if it is already chosen, no card has been drawn, or unmatched card
@@ -156,8 +161,8 @@ for(var i = 0; i < cards.length; i++){
       else if(currentCard.children.length < 1){
         // create an image element to be inserted in card block when clicked
         const imgElement = document.createElement('img');
-        imgElement.src = 'images/bunny.png';
-        imgElement.alt = 'An image of bunny';
+        imgElement.src = 'images/hopper.png';
+        imgElement.alt = 'An image of hopper';
         currentCard.appendChild(imgElement);
 
         // replace new card number on gameboard at index i
@@ -168,7 +173,7 @@ for(var i = 0; i < cards.length; i++){
       }
     }
     else{
-      alert('You have already won the game. Feel free to refresh the page to replay!');
+      alert('You have already won the game!');
     }
   });
 }

@@ -1,3 +1,7 @@
+/* 
+  CSS normalization method:
+    Reset the default styles of HTML elements across different web browsers for style consistency
+*/
 *{
   padding: 0;
   margin: 0;
@@ -6,15 +10,15 @@
 
 body{
   height: 100vh;
-  display: flex;
   background-color: rgb(158, 141, 111);
+  display: flex;
 }
 
 .game-board{
   width: 35vw;
   height: 97.5vh;
   margin: auto;
-  background: whitesmoke; 
+  background-color: whitesmoke; 
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -24,11 +28,13 @@ body{
 .card{
   width: 7.5vw;
   height: 22.5vh;
-  max-width: 7.5vw;
   margin: 5px;
-  position: relative;
+
   background-size: cover;
+  background-image: url('images/cards/unknown_card.png');
+
   display: flex;
+  position: relative;
 }
 
 .card > img{
@@ -36,12 +42,23 @@ body{
   margin: auto;
 }
 
-#drawn-card{
-  max-height: 200px;
-}
-
 .draw-card-section{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+#drawn-card{
+  max-height: 200px;
+}
+
+#draw-button{
+  font-size: medium;
+  margin-top: 10px;
+  padding: 10px 5px;
+}
+
+#restart-game-button{
+  font-size: medium;
+  padding: 10px 5px;
 }
